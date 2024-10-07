@@ -1,0 +1,44 @@
+Manager:
+    HomeScreen:
+    FirstScreen:
+    MenuScreen:
+
+
+<HomeScreen>:
+    name:"home"
+    Label:
+        text:"welcome user"
+        color:(0,0,0,1)
+    Button:
+        text:"Enter the App"
+        size_hint:(None,None)
+        size: (100,50)
+        pos_hint: {'center_x':0.5   ,'center_y':0.1}
+        on_release:
+            app.root.current ="first"
+            root.manager.transition.direction = "left"
+    Button:
+        text:"menu"
+        size_hint:(0.1,0.1)
+        pos_hint: {'x':0,'y':.9}
+        on_release:
+            app.root.current = "menu"
+            root.manager.transition.direction = "left"            
+
+<FirstScreen>:
+    name:"first"
+    Button:
+        text:"back"
+        on_release:
+            app.root.current = "home"
+            root.manager.transition.direction = "right"    
+
+<MenuScreen>:
+    name: "menu"
+    Button:
+        text:"back"
+        size_hint:(None,None)
+        size:(50,50)
+        pos_hint: {'x':0,'y':.9}
+        on_release:
+            app.root.current="home"
