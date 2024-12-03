@@ -1,0 +1,249 @@
+Manager:
+    HomeScreen:
+    LoginScreen:
+    MapScreen:
+        id: map
+    ReportScreen:
+
+
+
+
+
+
+<HomeScreen>:
+    name: "home"
+    MDLabel:
+        
+        text:"WELCOME"
+        font_size: 80
+        halign:'center'
+        size_hint_y:None
+        pos_hint: {'center_x': 0.5,'center_y': 0.5}
+        height: self.texture_size[1]
+        padding_y:15
+    MDRoundFlatButton:
+        text:"Enter App"
+        pos_hint: {'center_x': 0.5,'center_y': 0.1}
+        on_press:app.root.current = 'map'
+    MDRoundFlatButton:
+        id:'exit'
+        text:'leave app'
+        pos_hint: {'center_x': 0.05,'center_y': 0.97}
+        on_press: app.stop()
+
+
+
+
+
+
+
+
+<MapScreen>:
+    name:"map"
+    orientation: 'vertical'
+    MapView:
+        id:'map_view'
+        lat: 28.4765648
+        lon: 77.4790754
+        zoom: 12
+        canvas.before:
+            Color:
+                rgba: 0,0,0,0
+            Rectangle:
+                pos:self.pos
+                size:self.size
+        
+    MDIconButton:
+        icon:'keyboard-backspace'
+        pos_hint: {'center_x': 0.05,'center_y': 0.97}
+        on_press: 
+            app.root.current ='home'
+            root.manager.transition.direction = "right"    
+    MDFillRoundFlatButton:
+        text: "login"
+        theme_width:'custom'
+        height:'56dp'
+        size_hint_x: .1
+        pos_hint: {'center_x': 0.9,'center_y': 0.9}
+        on_press: app.root.current='login'
+    MDFillRoundFlatButton:
+        text:'Report'
+        theme_width:'custom'
+        height:'56dp'
+        size_hint_x: .1
+        pos_hint: {'center_x': 0.9,'center_y': 0.97}
+        on_press:
+            app.root.current='report'
+            root.manager.transition.direction='up'
+
+    #MDFillRoundFlatButton:
+     #   text: 'test'
+      #  theme_width:'custom'
+       # height:'56dp'
+        #size_hint_x: .1
+       # pos_hint: {'center_x': 0.5,'center_y': 0.05}
+       # on_release: app.set_marker()
+
+
+
+
+
+
+
+<ReportScreen>:
+    name: "report"
+    MDCard:
+        orientation: 'vertical'
+        size_hint: 0.8,0.8 
+        #size:500,500
+        pos_hint: {'center_x': 0.5,'center_y': 0.5}
+        elevation: 10
+        padding: 25
+        spacing: 10
+        halign:'center'
+        
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 10
+            spacing: 10
+
+            # Form fields wrapped in GridLayout for proper alignment
+            GridLayout:
+                cols: 2
+                padding: 10
+                spacing: 10
+
+                Label:
+                    text: "Name:"
+                    color:0,0,0,1
+                MDTextField:
+                    id: name_input
+                    mode:'round'
+                    hint_text: "Your Name"
+                    multiline: False
+
+                Label:
+                    text: "Phone:"
+                    color:0,0,0,1
+                MDTextField:
+                    id: phone_input
+                    modde:'round'
+                    hint_text: "Phone Number"
+                    multiline: False
+
+                Label:
+                    text: "Location:"
+                    color:0,0,0,1
+                MDTextField:
+                    id: location_input
+                    mode:'round'
+                    hint_text: "Accident Location"
+                    multiline: False
+
+                Label:
+                    text: "Time:"
+                    color:0,0,0,1
+                MDTextField:
+                    id: time_input
+                    mode:"round"
+                    hint_text: "Accident Time"
+                    multiline: False
+
+                Label:
+                    text: "Vehicle Details:"
+                    color:0,0,0,1
+                MDTextField:
+                    id: vehicle_details_input
+                    mode:'round'
+                    hint_text: "Vehicle Details"
+                    multiline: False
+
+                Label:
+                    text: "Emergency Contact:"
+                    color:0,0,0,1
+                MDTextField:
+                    id: emergency_contact_input
+                    mode:'round'
+                    hint_text: "Emergency Contact (Optional)"
+                    multiline: False
+
+            # Submit button
+            MDFillRoundFlatButton:
+                text: "Submit"
+                size_hint: None, None
+                size: 200, 50
+                pos_hint: {"center_x": 0.5}
+                on_press: root.submit_form()
+
+
+    MDIconButton:
+        icon:'keyboard-backspace'
+        pos_hint: {'center_x': 0.12,'center_y': 0.86}
+        on_press: 
+            app.root.current ='map'
+            root.manager.transition.direction = "down"
+    
+
+
+
+
+
+
+
+
+<LoginScreen>:
+    name: "login"
+    MDCard:
+        orientation: 'vertical'
+        size_hint: None,None
+        size:300,400
+        pos_hint:{"center_x":.5,"center_y":.5}
+        elevation: 10
+        padding:25
+        spacing: 25
+        halign:'center'
+
+        MDLabel:
+            id:welcome_label
+            text:"ENTER CREDENTIALS"
+            font_size: 35
+            halign:'center'
+            size_hint_y:None
+            height: self.texture_size[1]
+            padding_y:15
+        MDTextField:
+            id:user
+            mode:'round' 
+            hint_text: "username"
+            icon_right:"account"
+            size_hint_x:None
+            width: 200
+            font_size: 18
+            pos_hint:{"center_x":0.5}
+           
+        MDTextField:
+            id:password
+            mode:'round'
+            hint_text: "password"
+            icon_right:"eye-off"
+            size_hint_x:None
+            width: 200
+            font_size: 18
+            pos_hint:{"center_x":0.5}
+            password:True 
+        MDRoundFlatButton:
+            text:"LOG IN"
+            font_size:12
+            pos_hint: {'center_x': 0.5,}
+            on_release: app.logger()
+        MDRoundFlatButton:
+            text:"CLEAR"
+            font_size:12
+            pos_hint: {'center_x': 0.5,}
+            on_release: app.clear()
+    MDIconButton:
+        icon:'keyboard-backspace'
+        pos_hint: {'center_x': 0.1,'center_y': 0.9}
+        on_press: 
+            app.root.current ='map'
+            root.manager.transition.direction = "up"
